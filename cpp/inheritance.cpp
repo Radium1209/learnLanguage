@@ -5,17 +5,22 @@ using namespace std;
 class A {
     int i;
 public:
-    A():i(0) { cout << "A::A()" << endl; }
+    A(int ii):i(ii) { cout << "A::A()" << endl; }
     ~A() { cout << "A::~A()" << endl; }
-    void print() { cout << "i=" << i << endl; }
+    void print() { cout << "A::print() i=" << i << endl; }
 // only Derived class can use
 protected:
     void set(int ii) { i=ii; }
+    int geti() { return i; }
 };
 
 // Derived class
 class B : public A {
 public:
+    B():A(15) { cout << "B::B()" << endl; }
+    ~B() { cout << "B::~B()" << endl; }
+    // print() in class B replace print() in class A
+    void print() { cout << "B::print() i=" << geti() << endl; }
     void f() {
         set(20);
         // i=30; wrong,i is private
